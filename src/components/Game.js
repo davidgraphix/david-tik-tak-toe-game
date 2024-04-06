@@ -11,3 +11,17 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
         if (winner || squares.every((square) => square !== null)) {
           return;
         }
+
+        const availableSquares = squares
+      .map((sq, idx) => (sq === null ? idx : null))
+      .filter((val) => val !== null);
+    const randomSquare =
+      availableSquares[Math.floor(Math.random() * availableSquares.length)];
+    if (randomSquare !== undefined) {
+      setTimeout(() => {
+        squares[randomSquare] = 'O';
+        setSquares(squares.slice());
+        setXIsNext(true); // Switch back to player
+      }, 500); // Delay computer move for better UX
+    }
+  };
