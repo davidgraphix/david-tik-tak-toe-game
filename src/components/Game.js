@@ -7,7 +7,6 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
     const winner = calculateWinner(squares);
 
     const handleComputerMove = () => {
-        // Prevent computer moves if the game is won or all squares are filled
         if (winner || squares.every((square) => square !== null)) {
           return;
         }
@@ -21,15 +20,57 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
       setTimeout(() => {
         squares[randomSquare] = 'O';
         setSquares(squares.slice());
-        setXIsNext(true); // Switch back to player
-      }, 500); // Delay computer move for better UX
+        setXIsNext(true);
+      }, 500);
     }
   };
 
 
   useEffect(() => {
-    // Trigger computer's move when it's their turn
     if (playWithComputer && !xIsNext) {
       handleComputerMove();
     }
   }, [xIsNext, playWithComputer, squares]);
+
+  const handleClick = (i) => {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = 'X';
+    setSquares(squares.slice());
+    setXIsNext(!xIsNext);
+  };
+
+  const restartGame = () => {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  };
+
+  let status;
+  if (winner) {
+    status = `Winner: ${winner === 'X' ? playerOne : "Computer"}`;
+  } else if (squares.every((square) => square !== null)) {
+    status = "Draw";
+  } else {
+    status = `Next player: ${xIsNext ? playerOne : "Computer"}`;
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board squares={squares} onClick={(i) => handleClick(i)} />
+      </div>
+      <div className="game-info">
+        <div>{status}</div>
+        {winner && (
+          <>
+            <button onClick={restartGame} className="game-button">Play Again</button>
+            <button onClick={onMainMenu} className="game-button">Main Menu</button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default Game;
