@@ -21,7 +21,7 @@ function App() {
 
   return(
     <div className="app">
-      {gameStarted ? (
+      {!gameStarted ? (
         <Setup onStart={(playerOneName, isSinglePlayer) => startGame(playerOneName, isSinglePlayer)}/>
       ) : (
         <Game 
