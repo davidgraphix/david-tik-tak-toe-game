@@ -25,3 +25,11 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
       }, 500); // Delay computer move for better UX
     }
   };
+
+
+  useEffect(() => {
+    // Trigger computer's move when it's their turn
+    if (playWithComputer && !xIsNext) {
+      handleComputerMove();
+    }
+  }, [xIsNext, playWithComputer, squares]);
