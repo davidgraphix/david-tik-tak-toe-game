@@ -38,7 +38,7 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = 'X';
+    squares[i] = xIsNext ? 'X' : 'O';
     setSquares(squares.slice());
     setXIsNext(!xIsNext);
   };
