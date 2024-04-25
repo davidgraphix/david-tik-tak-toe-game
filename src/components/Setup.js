@@ -19,7 +19,7 @@ function SetUp({ onStart }){
 
             {mode && (
                 <div>
-                    <input autoFocus placeholder="Player One Name" value={playerOne} onChange={(e) => setPlayerOne(e.target.value)}/>
+                    <input type="text" autoFocus placeholder="Player One Name" value={playerOne} onChange={(e) => setPlayerOne(e.target.value)} required/>
                     <button onClick={() => handleStart(mode === 'single')}>Start Game</button>
                     {mode === 'multi' && <button onClick={() => setMode(null)}>Back</button>}
                 </div>
