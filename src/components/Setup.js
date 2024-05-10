@@ -3,6 +3,7 @@ import React, {useState} from "react";
 function SetUp({ onStart }){
     const [mode, setMode] = useState(null);
     const [playerOne, setPlayerOne] = useState('');
+    const [playerTwo, setPlayerTwo] = useState('');
 
     const handleStart = (isSInglePlayer) =>{
         onStart(playerOne, isSInglePlayer);
