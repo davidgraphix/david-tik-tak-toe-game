@@ -6,6 +6,7 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const winner = calculateWinner(squares);
+  const isDraw = winner === null && squares.every((square) => square !== null);
 
   useEffect(() => {
     const handleComputerMove = () => {
@@ -64,7 +65,7 @@ function Game({ playerOne, playWithComputer, onMainMenu }) {
       </div>
       <div className="game-info">
         <div>{status}</div>
-        {winner && (
+        {(winner || isDraw) && (
           <>
             <button onClick={restartGame} className="game-button">Play Again</button>
             <button onClick={onMainMenu} className="game-button">Main Menu</button>
